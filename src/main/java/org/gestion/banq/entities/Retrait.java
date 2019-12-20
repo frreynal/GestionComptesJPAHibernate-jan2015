@@ -1,4 +1,9 @@
 package org.gestion.banq.entities;
 
-public class Retrait {
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+public class Retrait extends Operation {
 }

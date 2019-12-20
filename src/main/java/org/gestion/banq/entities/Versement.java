@@ -1,4 +1,9 @@
 package org.gestion.banq.entities;
 
-public class Versement {
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+public class Versement extends Operation {
 }
