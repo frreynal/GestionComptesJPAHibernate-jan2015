@@ -1,11 +1,14 @@
 package org.gestion.banq.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
 @Entity
+@Data
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 // comme il y a de l'héritage on met cette annotation
 //strategy SINGLE_TABLE means que tous les types de comptes seront regroupés ds la même table

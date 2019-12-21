@@ -1,10 +1,11 @@
-package org.gestion.banq.dao;
+package org.gestion.banq.metier;
 
 import org.gestion.banq.entities.*;
 
 import java.util.List;
 
-public interface IBanqueDao {
+public interface IBanqueMetier {
+    
     public Client addClient(Client client);
     
     public Employe addEmploye(Employe e, Long codeSup);
@@ -15,13 +16,11 @@ public interface IBanqueDao {
     
     public Compte addCompte(Compte cp, Long codeCli, Long codeEmp);
     
-    public Operation addOperation(Operation op, String codeCpte, Long CodeEmp);
+    public void versement(double mt, String codeCpte, Long codeEmp);
     
-    //public void versement(String codeCpte, double mt, Long codeEmp);
+    public void retrait(double mt, String codeCpte, Long codeEmp);
     
-    //public void  retrait(String codeCpte, double mt, Long codeEmp);
-    
-    //public void virement(String codeCpt1, String codeCpte2, double mt, Long CodeEmp);
+    public void virement(double mt, String codeCpt1, String codeCpte2, Long CodeEmp);
     
     public Compte consulterCompte(String codeCpte);
     
@@ -40,6 +39,4 @@ public interface IBanqueDao {
     public List<Groupe> getGroupes();
     
     public List<Employe> getEmployesByGroupe(Long codeGr);
-    
-    
 }

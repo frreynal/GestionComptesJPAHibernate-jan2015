@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+    <bean id="dao" class="org.gestion.banq.dao.BanqueDaoImpl"></bean>
+    <bean id="metier" class="org.gestion.banq.metier.BanqueMetierImpl">
+        <!--        Associer l'objet DAO à l'objet métier en faisant l'injection des dépendances -->
+        <!--        via le <property></property>  : -->
+        <!--        à la property de nom dao on lui affecte l'objet de référence "dao"-->
+        <property name="dao" ref="dao"></property>
+    </bean>
+    <bean id="datasource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassname" value="com.mysql.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/banque5"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value=""></property>
+    </bean>
+    <bean id="persistentUnitManager"
+          class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+        <property name="persistenceXmlLocations" value="com.mysql.jdbc.Driver">
+            <list>
+                <value>classpath*:META-INF/persistence.xml</value>
+            </list>
+        </property>
+        <property name="defaultDataSource" ref="dataSource"></property>
+    </bean>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="persistenceUnitManager" ref="persistenceUnitmanager"/>
+        <property name="persistenceUnitName" value="MY_P_U"/>
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entitymanagerFactory" ref="entityManagerFactory">
+        </property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--    Spring doit chercher l'annotation @PersistenceContext (dans BanqueDaoImpl) pour
+     injecter l'EntityManager : -->
+    <context:annotation-config></context:annotation-config>
+
+</beans>
