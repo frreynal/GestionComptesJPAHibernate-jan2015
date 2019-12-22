@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!--https://www.youtube.com/watch?v=5W3jsEcZgnc - 1:31:30-->
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
     <persistence-unit name="MY_P_U" transaction-type="RESOURCE_LOCAL">
-
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-
         <properties>
             <!--            Si la BDonnées n'existe pas Hibernate va la créeer, sinon l'écraser ;
             il faut "update" pour ne pas qu'il l'écrase à chaque fois -->
             <property name="hibernate.hbm2ddl.auto" value="create"/>
-
             <!--            afficher les requêtes SQL au moment de l'exécution-->
             <property name="hibernate.show_sql" value="true"/>
-
-            <property name="hibernate.format_sql" value="true"/>
+            <!--            <property name="hibernate.format_sql" value="true"/>-->
         </properties>
-
     </persistence-unit>
 
 </persistence>

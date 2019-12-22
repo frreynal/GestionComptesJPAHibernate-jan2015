@@ -4,40 +4,44 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
-    <bean id="dao" class="org.gestion.banq.dao.BanqueDaoImpl"></bean>
+       xsi:schemaLocation=
+               "http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="dao" class="org.gestion.banq.dao.BanqueDaoImpl"/>
     <bean id="metier" class="org.gestion.banq.metier.BanqueMetierImpl">
         <!--        Associer l'objet DAO à l'objet métier en faisant l'injection des dépendances -->
         <!--        via le <property></property>  : -->
         <!--        à la property de nom dao on lui affecte l'objet de référence "dao"-->
-        <property name="dao" ref="dao"></property>
+        <property name="dao" ref="dao"/>
     </bean>
-    <bean id="datasource"
+    <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassname" value="com.mysql.jdbc.Driver"></property>
-        <property name="url" value="jdbc:mysql://localhost:3306/banque5"></property>
-        <property name="username" value="root"></property>
-        <property name="password" value=""></property>
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url"
+                  value="jdbc:mysql://192.168.99.100:6603/banque5"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
     </bean>
-    <bean id="persistentUnitManager"
+    <bean id="persistenceUnitManager"
           class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
-        <property name="persistenceXmlLocations" value="com.mysql.jdbc.Driver">
+        <property name="persistenceXmlLocations">
             <list>
                 <value>classpath*:META-INF/persistence.xml</value>
             </list>
         </property>
-        <property name="defaultDataSource" ref="dataSource"></property>
+        <property name="defaultDataSource" ref="dataSource"/>
     </bean>
 
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitManager" ref="persistenceUnitmanager"/>
+        <property name="persistenceUnitManager" ref="persistenceUnitManager"/>
         <property name="persistenceUnitName" value="MY_P_U"/>
     </bean>
 
     <bean id="transactionManager"
           class="org.springframework.orm.jpa.JpaTransactionManager">
-        <property name="entitymanagerFactory" ref="entityManagerFactory">
+        <property name="entityManagerFactory" ref="entityManagerFactory">
         </property>
     </bean>
 
